@@ -1,0 +1,6 @@
+# uv virtual environment
+.venv/
+
+# Test coverage
+.coverage
+.pytest_cache/
