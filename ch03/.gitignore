@@ -1,6 +1,23 @@
 # uv virtual environment
 .venv/
 
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Type checking cache
+.mypy_cache/
+.ruff_cache/
+
 # Test coverage
 .coverage
 .pytest_cache/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# macOS
+.DS_Store
