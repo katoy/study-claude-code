@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+HOOK_DIR=$(cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$HOOK_DIR/.." && pwd)
+
+echo "Running coverage check..."
+cd "$REPO_ROOT/ch03"
+uv run pytest --cov-fail-under=100 -q

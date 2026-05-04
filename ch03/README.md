@@ -22,6 +22,15 @@
 uv sync
 ```
 
+### git フック設定（初回のみ）
+
+```bash
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-push
+```
+
+push 前に自動的にカバレッジ 100% チェックが実行されます。
+
 ## 使い方
 
 ```bash
