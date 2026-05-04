@@ -1,0 +1,14 @@
+# uv virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Type checking cache
+.mypy_cache/
+.ruff_cache/
+
+# macOS
+.DS_Store
