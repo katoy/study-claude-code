@@ -1,9 +1,9 @@
-"""Simple multiply module with a small CLI.
+"""シンプルな乗算モジュールと小さい CLI を提供します。
 
-This module provides:
-- multiply(a, b): return product as float
-- parse_args(argv): parse and validate CLI arguments
-- main(argv=None): entry point (keeps behavior compatible with existing tests)
+このモジュールは以下を提供します:
+- multiply(a, b): 2 つの数値の積を float で返す
+- parse_args(argv): CLI 引数を解析および検証する
+- main(argv=None): エントリーポイント (既存のテストとの互換性を保つ)
 """
 
 from __future__ import annotations
@@ -13,15 +13,15 @@ import sys
 
 
 def multiply(a: float, b: float) -> float:
-    """Return the product of two numbers as a float."""
+    """2 つの数値の積を float で返す。"""
     return a * b
 
 
 def parse_args(argv: Optional[List[str]] = None) -> Tuple[float, float]:
-    """Parse and validate arguments.
+    """引数を解析および検証する。
 
-    Accepts argv (including program name at index 0). Expects exactly two numeric
-    arguments after the program name. Raises ValueError on invalid input.
+    argv を受け取ります (インデックス 0 にはプログラム名を含む)。プログラム名の後に正確に 2 つの数値
+    引数を期待します。無効な入力の場合は ValueError を発生させます。
     """
     if argv is None:
         argv = sys.argv  # pragma: no cover
@@ -39,10 +39,10 @@ def parse_args(argv: Optional[List[str]] = None) -> Tuple[float, float]:
 
 
 def main(argv: Optional[List[str]] = None) -> None:
-    """Command-line entry point.
+    """コマンドラインのエントリーポイント。
 
-    Keeps the same observable behavior: prints result on success and exits with
-    code 1 on error to remain compatible with existing tests and CLI usage.
+    同じ動作を保ちます: 成功時に結果を出力し、エラー時にコード 1 で終了して既存のテストと
+    CLI 使用法との互換性を保ちます。
     """
     if argv is None:
         argv = sys.argv
