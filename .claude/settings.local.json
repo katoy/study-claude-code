@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__notebooklm-mcp__notebook_list",
+      "mcp__notebooklm-mcp__notebook_get",
+      "mcp__notebooklm-mcp__notebook_describe",
+      "Bash(git add *)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "filesystem",
+    "git"
+  ]
+}
