@@ -1,9 +1,11 @@
 import sys
 
+
 def multiply(a: float, b: float) -> float:
     return a * b
 
-if __name__ == "__main__":
+
+def main() -> None:
     if len(sys.argv) != 3:
         print("使い方: python multiply.py <数字1> <数字2>")
         sys.exit(1)
@@ -14,3 +16,7 @@ if __name__ == "__main__":
         print("エラー: 数値を入力してください")
         sys.exit(1)
     print(f"{a} × {b} = {multiply(a, b)}")
+
+
+if __name__ == "__main__":  # pragma: no cover
+    main()

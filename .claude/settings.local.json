@@ -20,7 +20,9 @@
       "Bash(uv run *)",
       "Bash(git rm *)",
       "mcp__filesystem__create_directory",
-      "Bash(git restore *)"
+      "Bash(git restore *)",
+      "Bash(git branch *)",
+      "Bash(git checkout *)"
     ]
   },
   "enabledMcpjsonServers": [
