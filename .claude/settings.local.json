@@ -4,7 +4,23 @@
       "mcp__notebooklm-mcp__notebook_list",
       "mcp__notebooklm-mcp__notebook_get",
       "mcp__notebooklm-mcp__notebook_describe",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "mcp__plugin_claude-mem_mcp-search__search",
+      "mcp__plugin_claude-mem_mcp-search__timeline",
+      "Bash(git remote *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(ruff check *)",
+      "Bash(mypy *)",
+      "Bash(pip install *)",
+      "Bash(uv --version)",
+      "Bash(uv sync *)",
+      "Bash(uv run *)",
+      "Bash(git rm *)",
+      "mcp__filesystem__create_directory",
+      "Bash(git restore *)"
     ]
   },
   "enabledMcpjsonServers": [
