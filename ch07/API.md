@@ -2,18 +2,27 @@
 
 ## `password_checker.py`
 
-### `check_password_strength(password: str) -> str`
+### `check_password_strength(password: str) -> PasswordResult`
 
-パスワードの強度を評価し、その結果を文字列で返します。
+パスワードの強度を評価し、詳細情報を含む `PasswordResult` オブジェクトを返します。
 
 #### 引数
 - `password` (str): チェック対象のパスワード文字列。
 
 #### 戻り値
-- `str`: 強度を示す文字列。以下のいずれかになります。
-    - `"弱い"`: 満たしているルールが 0〜1 個の場合
-    - `"普通"`: 満たしているルールが 2〜3 個の場合
-    - `"強い"`: 4つのルールすべてを満たしている場合
+- `PasswordResult`: 以下の属性を持つオブジェクト。
+    - `strength` (Strength): 強度（Enum）。
+    - `met_rules` (List[str]): 満たしているルールのリスト。
+    - `failed_rules` (List[str]): 満たしていないルールのリスト。
+
+### `Strength` (Enum)
+- `WEAK`: `"弱い"` (ルール 0〜1 個)
+- `MEDIUM`: `"普通"` (ルール 2〜3 個)
+- `STRONG`: `"強い"` (ルール 4 個)
+
+### `PasswordResult` (dataclass)
+判定結果と詳細なフィードバックを保持します。
+文字列として評価した場合は `strength.value` を返します。
 
 #### 強度判定ルール
 1. **長さ**: 8文字以上

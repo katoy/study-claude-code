@@ -11,8 +11,12 @@ def main() -> None:
 
     print("--- パスワード強度チェック ---")
     for pwd in passwords:
-        strength = check_password_strength(pwd)
-        print(f"Password: {pwd:<15} -> Strength: {strength}")
+        result = check_password_strength(pwd)
+        print(f"Password: {pwd:<15} -> Strength: {result.strength.value}")
+        if result.failed_rules:
+            print(f"  [不足している条件]: {', '.join(result.failed_rules)}")
+        else:
+            print("  [全ての条件をクリアしています]")
 
     print("\n--- エラーハンドリングの例 ---")
     try:
