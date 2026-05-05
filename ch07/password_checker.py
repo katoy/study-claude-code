@@ -8,17 +8,17 @@ class Strength(Enum):
     MEDIUM = "普通"
     STRONG = "強い"
 
-# Constants for configuration
+# 設定用の定数
 MIN_LENGTH = 8
 SPECIAL_CHARS_PATTERN = r'[!@#$%^&*()_+\-=\[\]{}|;:,.<>?/]'
 SPECIAL_CHARS_RE = re.compile(SPECIAL_CHARS_PATTERN)
 
-# Rule descriptions (can be moved to a separate localization file later)
+# ルールの説明（後で別のローカライズファイルに移動可能）
 RULE_DESCRIPTIONS = {
-    "length": f"{MIN_LENGTH}文字以上",
+    "length": f"{MIN_LENGTH} 文字以上",
     "case": "大文字と小文字の両方を含む",
-    "digit": "数字を1つ以上含む",
-    "special": "特殊文字を1つ以上含む"
+    "digit": "数字を 1 つ以上含む",
+    "special": "特殊文字を 1 つ以上含む"
 }
 
 @dataclass
@@ -32,22 +32,22 @@ class PasswordResult:
 
 def check_password_strength(password: str) -> PasswordResult:
     """
-    Check the strength of a password based on specific rules.
+    特定のルールに基づいてパスワードの強度をチェックします。
 
-    Rules:
-    1. At least 8 characters long
-    2. Contains both uppercase and lowercase letters
-    3. Contains at least one digit
-    4. Contains at least one special character
+    ルール:
+    1. 少なくとも 8 文字以上
+    2. 大文字と小文字の両方を含む
+    3. 少なくとも 1 つ以上の数字を含む
+    4. 少なくとも 1 つ以上の特殊文字を含む
 
-    Returns:
-    - PasswordResult object containing strength, met rules, and failed rules.
+    戻り値:
+    - 強度、満たされたルール、および失敗したルールを含む PasswordResult オブジェクト。
 
-    Raises:
-    - TypeError: If password is not a string.
+    例外:
+    - TypeError: パスワードが文字列でない場合。
     """
     if not isinstance(password, str):
-        raise TypeError("Password must be a string")
+        raise TypeError("パスワードは文字列である必要があります")
 
     rule_checks = [
         ("length", len(password) >= MIN_LENGTH),
@@ -69,4 +69,3 @@ def check_password_strength(password: str) -> PasswordResult:
         strength = Strength.WEAK
 
     return PasswordResult(strength, met_rules, failed_rules)
-
