@@ -8,13 +8,19 @@ def check_password_strength(password: str) -> str:
     - At least 8 characters long
     - Contains both uppercase and lowercase letters
     - Contains at least one digit
-    - Contains at least one special character (!@#$%^&*)
+    - Contains at least one special character (!@#$%^&*()_+-=[]{}|;:,.<>?/)
 
     Returns:
     - "弱い" (Weak): 0-1 rules met
     - "普通" (Medium): 2-3 rules met
     - "強い" (Strong): All 4 rules met
+
+    Raises:
+    - TypeError: If password is not a string.
     """
+    if not isinstance(password, str):
+        raise TypeError("Password must be a string")
+
     met_rules = 0
 
     # Rule 1: At least 8 characters long
@@ -29,8 +35,9 @@ def check_password_strength(password: str) -> str:
     if any(c.isdigit() for c in password):
         met_rules += 1
 
-    # Rule 4: Contains at least one special character (!@#$%^&*)
-    if re.search(r'[!@#$%^&*]', password):
+    # Rule 4: Contains at least one special character
+    # Using a broader set of special characters
+    if re.search(r'[!@#$%^&*()_+\-=\[\]{}|;:,.<>?/]', password):
         met_rules += 1
 
     if met_rules <= 1:
