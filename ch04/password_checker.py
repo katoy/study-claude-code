@@ -1,5 +1,9 @@
 import re
 
+# Constants for configuration
+MIN_LENGTH = 8
+SPECIAL_CHARS_PATTERN = r'[!@#$%^&*()_+\-=\[\]{}|;:,.<>?/]'
+
 def check_password_strength(password: str) -> str:
     """
     Check the strength of a password based on specific rules.
@@ -8,7 +12,7 @@ def check_password_strength(password: str) -> str:
     - At least 8 characters long
     - Contains both uppercase and lowercase letters
     - Contains at least one digit
-    - Contains at least one special character (!@#$%^&*()_+-=[]{}|;:,.<>?/)
+    - Contains at least one special character
 
     Returns:
     - "弱い" (Weak): 0-1 rules met
@@ -21,28 +25,20 @@ def check_password_strength(password: str) -> str:
     if not isinstance(password, str):
         raise TypeError("Password must be a string")
 
-    met_rules = 0
+    # Evaluate all rules as a list of booleans
+    rules = [
+        len(password) >= MIN_LENGTH,
+        any(c.isupper() for c in password) and any(c.islower() for c in password),
+        any(c.isdigit() for c in password),
+        bool(re.search(SPECIAL_CHARS_PATTERN, password))
+    ]
 
-    # Rule 1: At least 8 characters long
-    if len(password) >= 8:
-        met_rules += 1
+    # Count how many rules are satisfied
+    met_count = sum(rules)
 
-    # Rule 2: Contains both uppercase and lowercase letters
-    if any(c.isupper() for c in password) and any(c.islower() for c in password):
-        met_rules += 1
-
-    # Rule 3: Contains at least one digit
-    if any(c.isdigit() for c in password):
-        met_rules += 1
-
-    # Rule 4: Contains at least one special character
-    # Using a broader set of special characters
-    if re.search(r'[!@#$%^&*()_+\-=\[\]{}|;:,.<>?/]', password):
-        met_rules += 1
-
-    if met_rules <= 1:
-        return "弱い"
-    elif met_rules <= 3:
-        return "普通"
-    else:
+    # Determine strength based on the count
+    if met_count >= 4:
         return "強い"
+    if met_count >= 2:
+        return "普通"
+    return "弱い"
