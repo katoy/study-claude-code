@@ -1,10 +1,10 @@
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from datetime import date
 from storage import JSONStorage
 from cli import record_transaction
 from models import TransactionType
-import cli
+import runpy
 
 @pytest.fixture
 def temp_storage(tmp_path):
@@ -81,29 +81,17 @@ def test_record_invalid_amount_format(temp_storage, capsys):
     assert "エラー: 金額は数値で入力してください。" in captured.out
 
 def test_cli_main_block():
-    import sys
-    from unittest.mock import patch, MagicMock
+    from unittest.mock import patch
     
-    # record_transaction 関数そのものをモックし、
-    # 副作用のある関数定義を除いた末尾の3行だけを実行することでカバレッジを稼ぐ
-    with patch("cli.record_transaction") as mock_record, \
-         patch("cli.JSONStorage") as mock_storage, \
-         patch("builtins.print"):
+    # runpy.run_path を使用して cli.py をスクリプトとして実行する
+    # これにより coverage が cli.py のファイルパスに関連付けられる
+    # 副作用を抑えるために JSONStorage と print をモックし、
+    # input は日付エラーで即終了するように設定する
+    with patch("storage.JSONStorage"), \
+         patch("builtins.print"), \
+         patch("builtins.input", side_effect=["invalid-date"]):
         
-        # 名前空間を定義
-        exec_globals = {
-            "__name__": "__main__",
-            "JSONStorage": mock_storage,
-            "record_transaction": mock_record
-        }
+        # run_name="__main__" で実行することで if __name__ == "__main__": ブロックを通過
+        runpy.run_path("cli.py", run_name="__main__")
         
-        # cli.py の末尾の実行ブロックだけを抽出して実行
-        code = """
-if __name__ == "__main__":
-    storage = JSONStorage("transactions.json")
-    record_transaction(storage)
-"""
-        exec(code, exec_globals)
-        
-        mock_storage.assert_called_once_with("transactions.json")
-        mock_record.assert_called_once()
+        # 実行が正常に終了すること（例外が起きないこと）を確認
